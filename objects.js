@@ -37,10 +37,18 @@ Box.prototype.setScale = function(x, y) {
     this.S = scale(x, y);
 }
 
+Box.prototype.setFill = function(fill) {
+    this.fill = fill;
+}
+
+Box.prototype.setStroke = function(stroke) {
+    this.stroke = stroke;
+}
+
 Box.prototype.draw = function(canv = ctx) { //requer o contexto de desenho
     //pega matriz de tranformação de coordenadas canônicas para coordenadas do canvas
     var M = transformCanvas(WIDTH, HEIGHT);
-    var Mg = mult(M, mult(mult(this.R, this.S), this.T));
+    var Mg = mult(M, mult(mult(this.T, this.R), this.S));
     canv.lineWidth = 2; //largura da borda
     canv.strokeStyle = this.stroke;
     canv.fillStyle = this.fill;
@@ -71,7 +79,7 @@ Box.prototype.draw = function(canv = ctx) { //requer o contexto de desenho
 }
 
 
-function Circle(center = [0, 0, 1], radius = 50) {
+function Circle(center = [0, 0, 1], radius = 30) {
     this.center = center;
     this.radius = radius;
     this.T = identity(); //matriz 3x3 de translação 
@@ -111,10 +119,14 @@ Circle.prototype.setFill = function(fill) {
     this.fill = fill;
 }
 
+Circle.prototype.setStroke = function(stroke) {
+    this.stroke = stroke;
+}
+
 Circle.prototype.draw = function(canv = ctx) { //requer o contexto de desenho
     //pega matriz de tranformação de coordenadas canônicas para coordenadas do canvas
     var M = transformCanvas(WIDTH, HEIGHT);
-    var Mg = mult(M, mult(mult(this.R, this.S), this.T));
+    var Mg = mult(M, mult(mult(this.T, this.R), this.S));
     canv.lineWidth = 2; //largura da borda
     canv.strokeStyle = this.stroke;
     canv.fillStyle = this.fill;

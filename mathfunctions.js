@@ -35,9 +35,17 @@ function identity(v = 1) { // identidade
 
 function transformCanvas(Width, Height) {
     return [
-        [1, 0, Width / 2.],
+        [1,  0,  Width / 2.],
         [0, -1, Height / 2.],
-        [0, 0, 1]
+        [0,  0,           1]
+    ];
+}
+
+function transformUsual(Width, Height) {
+    return [
+        [1,  0,  -Width / 2.],
+        [0, -1,  Height / 2.],
+        [0,  0,            1]
     ];
 }
 

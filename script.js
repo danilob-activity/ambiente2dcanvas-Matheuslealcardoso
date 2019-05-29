@@ -114,3 +114,33 @@ function rotateObject(){
         }
     }
 }
+
+function colorObject(){
+    if(objectSelected != null){
+        try {
+            fill = "#" + document.getElementById("colorObject").value;
+            objectSelected.setFill(fill);
+            drawCanvas();
+        } catch (error) {
+            display.alert(error);
+        }
+    }
+}
+
+function strokeObject(){
+    if(objectSelected != null){
+        try {
+            stroke = "#" + document.getElementById("strokeObject").value;
+            objectSelected.setStroke(stroke);
+            drawCanvas();
+        } catch (error) {
+            display.alert(error);
+        }
+    }
+}
+
+function onClickMouse(event){
+    x = event.offsetX;
+    y = event.offsetY;
+    console.log("X: " + x + " Y:" + y);
+}
