@@ -65,6 +65,18 @@ function updateDisplay(objectSelected) {
     document.getElementById("posy").value = objectSelected.getTranslate()[1];
 }
 
+function objectName(){
+    if (objectSelected != null) {
+        try {
+            name = document.getElementById("objectName").value;
+            objectSelected.setName(name);
+            drawCanvas();
+        } catch (error) {
+            display.alert(error);
+        }
+    }
+}
+
 function updatePosition() {
     if (objectSelected != null) {
         try {
@@ -73,7 +85,32 @@ function updatePosition() {
             objectSelected.setTranslate(posx, posy);
             drawCanvas();
         } catch (error) {
-            alert(error);
+            display.alert(error);
+        }
+    }
+}
+
+function scaleObject() {
+    if (objectSelected != null) {
+        try {
+            scalex = parseFloat(document.getElementById("scalex").value);
+            scaley = parseFloat(document.getElementById("scaley").value);
+            objectSelected.setScale(scalex, scaley);
+            drawCanvas();
+        } catch (error) {
+            display.alert(error);
+        }
+    }
+}
+
+function rotateObject(){
+    if(objectSelected != null){
+        try {
+            angle = parseFloat(document.getElementById("angle").value);
+            objectSelected.setRotate(angle);
+            drawCanvas();
+        } catch (error) {
+            display.alert(error);
         }
     }
 }

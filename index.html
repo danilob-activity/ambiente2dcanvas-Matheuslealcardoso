@@ -36,19 +36,22 @@
                             </tr>
                             <tr>
                                 <td>Name:</td>
-                                <td width="90%"><input type="text"></td>
+                                <td width="90%"><input type="text" id="objectName" value=" " oninput="objectName();"></td>
                             </tr>
                             <tr>
                                 <td>Translate:</td>
-                                <td style="white-space: nowrap;">x=<input id="posx" width="20%" type="text" value="0" oninput="updatePosition();"><br></br:>y=<input id="posy" width="20%" type="text" value="0" oninput="updatePosition();"></td>
+                                <td style="white-space: nowrap;">x = <input id="posx" width="20%" type="text" value="0" oninput="updatePosition();"><br></br:>y = <input id="posy" width="20%" type="text" value="0" oninput="updatePosition();"></td>
                             </tr>
                             <tr>
                                 <td>Rotate:</td>
-                                <td width="100%"></td>
+                                <td width="100%">r = <input type="text" id="angle" value="0" oninput="rotateObject();"></td>
                             </tr>
                             <tr>
                                 <td>Scale:</td>
-                                <td style='width:20%'></td>
+                                <td style='width:20%'>
+                                    x = <input type="text" id="scalex" value="0" oninput="scaleObject();"><br>
+                                    y = <input type="text" id="scaley" value="0" oninput="scaleObject();">
+                                </td>
                             </tr>
                             <tr>
                                 <td>Fill color:</td>
