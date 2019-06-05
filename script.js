@@ -11,7 +11,9 @@ canvas.height = HEIGHT;
 //faz o desenho do triângulo
 
 var objects = []; //lista de objetos
-var objectSelected = null;
+var 
+
+objectSelected = null;
 
 function drawCanvas() {
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
@@ -72,7 +74,7 @@ function objectName(){
             objectSelected.setName(name);
             drawCanvas();
         } catch (error) {
-            display.alert(error);
+            window.alert(error);
         }
     }
 }
@@ -85,7 +87,7 @@ function updatePosition() {
             objectSelected.setTranslate(posx, posy);
             drawCanvas();
         } catch (error) {
-            display.alert(error);
+            window.alert(error);
         }
     }
 }
@@ -98,7 +100,7 @@ function scaleObject() {
             objectSelected.setScale(scalex, scaley);
             drawCanvas();
         } catch (error) {
-            display.alert(error);
+            window.alert(error);
         }
     }
 }
@@ -110,7 +112,7 @@ function rotateObject(){
             objectSelected.setRotate(angle);
             drawCanvas();
         } catch (error) {
-            display.alert(error);
+            window.alert(error);
         }
     }
 }
@@ -122,7 +124,7 @@ function colorObject(){
             objectSelected.setFill(fill);
             drawCanvas();
         } catch (error) {
-            display.alert(error);
+            window.alert(error);
         }
     }
 }
@@ -134,7 +136,7 @@ function strokeObject(){
             objectSelected.setStroke(stroke);
             drawCanvas();
         } catch (error) {
-            display.alert(error);
+            window.alert(error);
         }
     }
 }
@@ -142,5 +144,42 @@ function strokeObject(){
 function onClickMouse(event){
     x = event.offsetX;
     y = event.offsetY;
-    console.log("X: " + x + " Y:" + y);
+
+    var newcoord = multVec(transformUsual(WIDTH, HEIGHT), [x, y, 1]);
+
+    //console.log("X: " + x + " Y: " + y);
+
+    console.log("X_Usual: " + newcoord[0] + " Y_Usual: " + newcoord[1]);
+    
+    for(var i=0; i < objects.length; i++){
+        if(objects[i].tryIntersection(x, y)){
+            console.log("Interseção!");
+        }else{
+            console.log("Não interseção!");
+        }
+    }
 }
+
+function overClick(event){
+    flag = 0;
+}
+
+function setToMoveObject(){
+    flag = 1;
+}
+
+function moveObject(event){
+    if(flag == 1){
+        if(objectSelected != null){
+            var x = event.offsetX;
+            var y = event.offsetY;
+            var pos = multVec(transformUsual(WIDTH, HEIGHT), [x,y,1]);
+            objectSelected.setTranslate(pos[0], pos[1]);
+            drawCanvas();
+        }
+    }
+}
+
+canvas.addEventListener("dblclick", setToMoveObject);
+canvas.addEventListener("mousemove", moveObject);
+canvas.addEventListener("click", overClick);

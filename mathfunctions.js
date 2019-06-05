@@ -17,12 +17,36 @@ function scale(x, y) {
 
 //TODO: dado um angulo theta em graus constroi a matriz homogenea de rotação 3x3
 function rotate(theta) {
-    theta = Math.PI * theta / 180.; //transforma theta em ratianos
+    theta = Math.PI * theta / 180; //transforma theta em ratianos
     return [
         [Math.cos(theta), -Math.sin(theta), 0],
-        [Math.sin(theta), Math.cos(theta), 0],
+        [Math.sin(theta), Math.cos(theta),  0],
         [0, 0, 1]
     ]; //retorna matriz 3x3
+}
+
+function inverseTranslate(mat){
+    return[
+        [1, 0, -mat[0][2]],
+        [0, 1, -mat[1][2]],
+        [0, 0,          1]
+    ];
+}
+
+function inverseScale(mat){
+    return[
+        [1. / mat[0][0], 0, 0],
+        [0, 1. / mat[1][1], 0],
+        [0,              0, 1]
+    ];
+}
+
+function inverseRotate(mat){
+    return[
+        [mat[0][0], mat[1][0], 0],
+        [mat[0][1], mat[1][1], 0],
+        [0, 0, 1]
+    ];
 }
 
 function identity(v = 1) { // identidade
@@ -79,7 +103,6 @@ function multVec(A, b) { //multiplicação de uma matriz (3x3) e um vetor
 }
 
 function calcDeterminantTriangle(p0, p1, p2) {
-    //ToDO: nesta função realize o cálculo da area do triangulo utilizando determinante
     //ToDO: nesta função realize o cálculo da area do triangulo utilizando determinante
     var A = [
         [p0[0], p0[1], 1],
