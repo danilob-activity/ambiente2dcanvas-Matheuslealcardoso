@@ -11,7 +11,7 @@ canvas.height = HEIGHT;
 //faz o desenho do triângulo
 
 var objects = []; //lista de objetos
-var 
+var flag;
 
 objectSelected = null;
 
@@ -144,6 +144,7 @@ function strokeObject(){
 function onClickMouse(event){
     x = event.offsetX;
     y = event.offsetY;
+    objectSelected = null;
 
     var newcoord = multVec(transformUsual(WIDTH, HEIGHT), [x, y, 1]);
 
@@ -152,10 +153,11 @@ function onClickMouse(event){
     console.log("X_Usual: " + newcoord[0] + " Y_Usual: " + newcoord[1]);
     
     for(var i=0; i < objects.length; i++){
-        if(objects[i].tryIntersection(x, y)){
-            console.log("Interseção!");
+        if(objects[i].tryIntersection(newcoord)){
+            //console.log("Interseção!");
+            objectSelected = objects[i];
         }else{
-            console.log("Não interseção!");
+            //console.log("Não interseção!");
         }
     }
 }
@@ -183,3 +185,4 @@ function moveObject(event){
 canvas.addEventListener("dblclick", setToMoveObject);
 canvas.addEventListener("mousemove", moveObject);
 canvas.addEventListener("click", overClick);
+

@@ -44,14 +44,27 @@ Box.prototype.setStroke = function(stroke) {
     this.stroke = stroke;
 }
 
-Box.prototype.tryIntersection = function(x, y){
+Box.prototype.getInverseTranslate = function(){
+    return inverseTranslate(this.T);
+}
+
+Box.prototype.getInverseRotate = function(){
+    return inverseRotate(this.R);
+}
+
+Box.prototype.getInverseScale = function(){
+    return inverseScale(this.S);
+}
+
+Box.prototype.tryIntersection = function(coord){
     
-    var M = transformUsual(WIDTH, HEIGHT);
-    var pG = multVec(M, [x, y, 1]);
+    var iR = this.getInverseRotate();
+    var iT = this.getInverseTranslate();
+    var iS = this.getInverseScale();
 
-    var Mg = mult(mult(inverseScale(this.S), inverseRotate(this.R)), inverseTranslate(this.T));
+    var Mg = mult(mult(iS, iR), iT);
 
-    var pL = multVec(Mg, pG);
+    var pL = multVec(Mg, coord);
 
     var points = [];
     points.push([this.center[0] + this.width / 2, this.center[1] + this.height / 2, 1]);
@@ -59,7 +72,7 @@ Box.prototype.tryIntersection = function(x, y){
     points.push([this.center[0] - this.width / 2, this.center[1] - this.height / 2, 1]);
     points.push([this.center[0] + this.width / 2, this.center[1] - this.height / 2, 1]);
 
-    if(pL[0] >= points[0][1] && pL[0] <= points[0][0]){
+    if(pL[0] >= points[1][0] && pL[0] <= points[0][0]){
         if(pL[1] >= points[2][1] && pL[1] <= points[1][1]){
             //console.log("Houve interseção!");
             return true;
@@ -150,13 +163,27 @@ Circle.prototype.setStroke = function(stroke) {
     this.stroke = stroke;
 }
 
+Circle.prototype.getInverseTranslate = function(){
+    return inverseTranslate(this.T);
+}
+
+Circle.prototype.getInverseRotate = function(){
+    return inverseRotate(this.R);
+}
+
+Circle.prototype.getInverseScale = function(){
+    return inverseScale(this.S);
+}
+
 Circle.prototype.tryIntersection = function(coords){
-    var M = transformUsual(WIDTH, HEIGHT);
-    var pG = multVec(M, coords);
+    
+    var iR = this.getInverseRotate();
+    var iT = this.getInverseTranslate();
+    var iS = this.getInverseScale();
 
-    var Mg = mult(mult(inverseScale(this.S), inverseRotate(this.R)), inverseTranslate(this.T));
+    var Mg = mult(mult(iS, iR), iT);
 
-    var pL = multVec(Mg, pG);
+    var pL = multVec(Mg, coords);
 
     var x = Math.pow(pL[0] - this.center[0], 2);
     var y = Math.pow(pL[1] - this.center[1], 2);
